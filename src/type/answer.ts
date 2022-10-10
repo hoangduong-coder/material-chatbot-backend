@@ -10,7 +10,7 @@ export interface Answer {
     category: string;
     editorial: string;
   };
-  dialog: {
+  dialog?: {
     isContextOnly: boolean;
     prompts: Array<{
       displayOrder: number;
@@ -18,5 +18,5 @@ export interface Answer {
       displayText: string;
     }>;
   };
-  answerSpan: AnswerSpan;
+  answerSpan?: AnswerSpan;
 }

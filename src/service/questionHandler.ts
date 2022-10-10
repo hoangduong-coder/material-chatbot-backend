@@ -1,4 +1,4 @@
-import { Question } from "../types/question";
+import { Question } from "../type/question";
 import questionData from "../question.json";
 
 const questionList: Array<Question> = questionData;

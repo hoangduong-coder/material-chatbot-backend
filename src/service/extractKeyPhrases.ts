@@ -15,13 +15,13 @@ const apiKey = process.env["TEXT_ANALYTICS_API_KEY"] || "<api key>";
 
 const documents = [
   "Raw material for MAT0001",
-  // "I need round bar size Diameter 30-50, please list materials",
-  // "Material ID for 20MnCr5+A",
-  // "List materials with Cr, Mn",
-  // "Density for material MAT0001",
-  // "Similar material MAT0005",
-  // "What is weight for 155mm length MAT0010",
-  // "What is cost for 250mm length bar MAT0032 $/kg and $/m",
+  "I need round bar size Diameter 30-50, please list materials",
+  "Material ID for 20MnCr5+A",
+  "List materials with Cr, Mn",
+  "Density for material MAT0001",
+  "Similar material MAT0005",
+  "What is weight for 155mm length MAT0010",
+  "What is cost for 250mm length bar MAT0032 $/kg and $/m",
 ];
 
 export async function main() {

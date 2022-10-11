@@ -11,11 +11,19 @@ router.get("/", (_req, res) => {
   res.send("Start chatting with me!");
 });
 
-router.post("/qna", (req, res) => {
-  console.log("Run POST successfully!");
-  const { question } = req.body;
-  const newQuestion = questionService.postQuestion(question);
-  res.json(newQuestion);
+router.post("/", (req, res) => {
+  try {
+    const { question } = req.body;
+    const newQuestion = questionService.postQuestion(question);
+    console.log("Run POST successfully!");
+    res.json(newQuestion);
+  } catch (error: unknown) {
+    let errorMessage = "Something went wrong.";
+    if (error instanceof Error) {
+      errorMessage += " Error: " + error.message;
+    }
+    res.status(400).send(errorMessage);
+  }
 });
 
 export default router;

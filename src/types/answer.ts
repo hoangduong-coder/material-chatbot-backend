@@ -1,11 +1,11 @@
-import { AnswerSpan } from "./helperTypes";
+import { AnswerSpan } from "./helperTypes/questionAnswering";
 
-export interface Answer {
-  questions: string[];
+export default interface Answer {
+  questions?: string[];
   answer: string;
-  confidenceScore: number;
-  id: number;
-  source: string;
+  confidenceScore?: number;
+  id: number | string;
+  source?: string;
   metadata?: {
     category: string;
     editorial: string;

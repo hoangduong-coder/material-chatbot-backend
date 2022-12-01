@@ -1,20 +1,12 @@
-export interface MaterialProperties {
-  name: string;
-  internationalStandards: string;
-  properties?: unknown;
-}
-
 export interface Material {
-  _id: string;
-  objectName: string;
-  dimensions: string;
-  unit: string;
-  internationalStandards: string;
-  rawMaterial: MaterialProperties;
-  remarks: string;
-  mass: number;
-  density: {
-    temperature: number; //in degree Celsius
-    value: number; //in g/cm^3
-  };
+  "Material ID": string;
+  "Object Name": string;
+  Dimensions: number | string;
+  "Unit of Measure": string;
+  "International Standard"?: string;
+  "Basic Material": string;
+  Remarks: string;
+  Mass: number;
+  Density: number;
+  Cost: number;
 }

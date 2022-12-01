@@ -1,4 +1,3 @@
-import { NumericLiteral } from "typescript";
 import { LanguageCode, Regex, Synonym } from "./language";
 
 interface SubListItem {
@@ -22,7 +21,7 @@ type Resolution = {
   rangeKind?: string;
   minimum?: string | number;
   maximum?: string | number;
-}
+};
 
 export type Utterance = {
   text: string;
@@ -55,7 +54,7 @@ export type Entity = {
   offset?: number;
   text?: string;
   extraInformation?: Array<ExtraInfo>;
-  resolutions?: Array<Resolution>
+  resolutions?: Array<Resolution>;
 };
 
 export type Assets = {
@@ -79,19 +78,19 @@ export type QueryModels = {
 };
 
 export type QuestionAsk = {
-  searchKey?: {
+  searchKey: {
     key: string;
   };
-  code?: {
+  code: {
     key: string;
     value: string;
   };
-  value?: {
+  value: {
     kind: string;
     value: string;
   };
-  range?: {
+  range: {
     min: string | number;
     max: string | number;
-  }
-}
+  };
+};

@@ -1,14 +1,14 @@
 import List from "../data/material.json";
-import { Material } from "../types/helperTypes/material";
 import { QuestionAsk } from "../types/helperTypes/clu";
 
 let ans: string;
-const Selection = (props: QuestionAsk) => {
-  const searched: Material = List.find(
-    (l) => l[props.code?.key!] === props.code?.value!.toUpperCase()
+const Selection = (props: Pick<QuestionAsk, "code">) => {
+  const searched = List.find(
+    (l) => l[props.code.key] === props.code.value.toUpperCase()
   );
-  console.log(searched);
-
+  if (!searched) {
+    return null;
+  }
   for (const [key, value] of Object.entries(searched)) {
     ans += `${key}: ${value}, `;
   }

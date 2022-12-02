@@ -1,14 +1,15 @@
-import List from "./material.json";
-import { QuestionAsk } from "./../../types/helperTypes/clu";
+import List from "../data/material.json";
+import { QuestionAsk } from "../types/helperTypes/clu";
 
-const EquivalentQuestion = (props: QuestionAsk) => {
-  const searched: any = List.find(
-    (l) => l[props.code?.key!] === props.code?.value!.toUpperCase()
+const EquivalentQuestion = (props: Pick<QuestionAsk, "code">) => {
+  const searched = List.find(
+    (l) => l[props.code.key] === props.code.value.toUpperCase()
   );
-  const listSearched = List.filter(
-    (ls) => ls.Remarks === searched['Remarks']
-  );
-  const ans = listSearched.map((s) => s['Material ID']);
+  if (!searched) {
+    return null;
+  }
+  const listSearched = List.filter((ls) => ls.Remarks === searched["Remarks"]);
+  const ans = listSearched.map((s) => s["Material ID"]);
   return ans.join(`, `);
 };
 

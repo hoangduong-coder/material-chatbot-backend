@@ -1,76 +1,67 @@
-import { QueryModels, QuestionAsk } from "./../../types/helperTypes/clu";
-import DirectQuestion from "./directQuestion"
-import Selection from "./selection"
-import EquivalentQuestion from "./equivalentQuestion"
-import CalculationQuestion from "./calculationQuestion";
-import RangeQuestion from "./rangeQuestion";
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-let question: QuestionAsk;
-let answer: string;
+import CalculationQuestion from "./calculationQuestion";
+import DirectQuestion from "./directQuestion";
+import EquivalentQuestion from "./equivalentQuestion";
+import { QueryModels } from "../types/helperTypes/clu";
+import RangeQuestion from "./rangeQuestion";
+import Selection from "./selection";
 
 const MainQuestion = (props: QueryModels) => {
   switch (props.result.prediction.topIntent) {
-    case 'DirectQuestion':
-      question = {
+    case "DirectQuestion":
+      return DirectQuestion({
         searchKey: {
-          key: props.result.prediction.entities[0].extraInformation?.[0].key!
+          key: props.result.prediction.entities[0].extraInformation?.[0].key!,
         },
-          code: {
-          key: props.result.prediction.entities[1].category!,
-          value: props.result.prediction.entities[1].text!
-        }
-      }
-      answer = DirectQuestion(question)
-      break;
-      case 'Selection':
-       question = {
         code: {
-          key: props.result.prediction.entities[0].category!,
-          value: props.result.prediction.entities[0].text!
-        }
-       } 
-       answer = Selection(question)
-      break;
-      case 'EquivalentQuestion':
-        question = {
-            code: {
-            key: props.result.prediction.entities[1].category!,
-            value: props.result.prediction.entities[1].text!
-          }
-        }
-        answer = EquivalentQuestion(question)
-      break;
-      case 'CalculationQuestion':
-        question = {
-          searchKey: {
-            key: props.result.prediction.entities[0].extraInformation?.[0].key!
-          },
-          code: {
-            key: props.result.prediction.entities[2].category!,
-            value: props.result.prediction.entities[2].text!
-          },
-          value: {
-            kind: props.result.prediction.entities[1].resolutions?.[0].resolutionKind!,
-            value: props.result.prediction.entities[1].text!
-          }
-        }
-        answer = CalculationQuestion(question)
-        break;
-      case 'RangeQuestion':
-        question = {
-          searchKey: {
-            key: props.result.prediction.entities[0].extraInformation?.[0].key!
-          },
-          range: {
-            min: props.result.prediction.entities[1].resolutions?.[0].minimum!,
-            max: props.result.prediction.entities[1].resolutions?.[0].maximum!
-          }
-        }
-        answer = RangeQuestion(question)
-        break;
+          key: props.result.prediction.entities[1].category,
+          value: props.result.prediction.entities[1].text!,
+        },
+      });
+    case "Selection":
+      return Selection({
+        code: {
+          key: props.result.prediction.entities[0].category,
+          value: props.result.prediction.entities[0].text!,
+        },
+      });
+    case "EquivalentQuestion":
+      return EquivalentQuestion({
+        code: {
+          key: props.result.prediction.entities[1].category,
+          value: props.result.prediction.entities[1].text!,
+        },
+      });
+    case "CalculationQuestion":
+      return CalculationQuestion({
+        searchKey: {
+          key: props.result.prediction.entities[0].extraInformation?.[0].key!,
+        },
+        code: {
+          key: props.result.prediction.entities[2].category,
+          value: props.result.prediction.entities[2].text!,
+        },
+        value: {
+          kind: props.result.prediction.entities[1].resolutions?.[0]
+            .resolutionKind!,
+          value: props.result.prediction.entities[1].text!,
+        },
+      });
+    case "RangeQuestion":
+      return RangeQuestion({
+        searchKey: {
+          key: props.result.prediction.entities[0].extraInformation?.[0].key!,
+        },
+        range: {
+          min: props.result.prediction.entities[1].resolutions?.[0].minimum!,
+          max: props.result.prediction.entities[1].resolutions?.[0].maximum!,
+        },
+      });
+    default:
+      return "No answer found!";
   }
+};
 
-  return answer
-}
-
-export default MainQuestion
+export default MainQuestion;

@@ -1,7 +1,7 @@
 import { Assets } from "./helperTypes/clu";
 import { LanguageCode } from "./helperTypes/language";
 
-export default interface CLU {
+export default interface CLUFile {
   projectFileVersion: string;
   stringIndexType: string;
   metadata: {

@@ -1,22 +1,8 @@
-import { AnswerSpan } from "./helperTypes/questionAnswering";
+import { Question } from ".";
 
 export default interface Answer {
-  questions?: string[];
-  answer: string;
-  confidenceScore?: number;
-  id: number | string;
-  source?: string;
-  metadata?: {
-    category: string;
-    editorial: string;
-  };
-  dialog?: {
-    isContextOnly: boolean;
-    prompts: Array<{
-      displayOrder: number;
-      qnaId: number;
-      displayText: string;
-    }>;
-  };
-  answerSpan?: AnswerSpan;
+  id: string;
+  query: Question | string;
+  type: "One-line" | "Selection";
+  answer: string | string[] | null; //One-line: return a string, Selection: return multiple selections
 }

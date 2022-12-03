@@ -1,5 +1,5 @@
-import List from "../data/material.json";
-import { QuestionAsk } from "../types/helperTypes/clu";
+import List from "../../data/material.json";
+import { QuestionAsk } from "../../types/helperTypes/query";
 
 const EquivalentQuestion = (props: Pick<QuestionAsk, "code">) => {
   const searched = List.find(

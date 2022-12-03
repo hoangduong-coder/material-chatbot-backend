@@ -1,5 +1,5 @@
-import List from "../data/material.json";
-import { QuestionAsk } from "../types/helperTypes/clu";
+import List from "../../data/material.json";
+import { QuestionAsk } from "../../types/helperTypes/query";
 
 const RangeQuestion = (props: Pick<QuestionAsk, "range" | "searchKey">) => {
   let check = "";
@@ -21,6 +21,8 @@ const RangeQuestion = (props: Pick<QuestionAsk, "range" | "searchKey">) => {
         return ls[props.searchKey.key] >= min;
       case "smaller":
         return ls[props.searchKey.key] <= max;
+      default:
+        return "No answer found!";
     }
   });
   const ans = listSearched.map((s) => s["Material ID"]);

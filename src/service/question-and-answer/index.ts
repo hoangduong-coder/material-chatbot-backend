@@ -1,14 +1,20 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
+import { Answer, Question } from "../../types";
+
 import CalculationQuestion from "./calculationQuestion";
 import DirectQuestion from "./directQuestion";
 import EquivalentQuestion from "./equivalentQuestion";
-import { QueryModels } from "../types/helperTypes/clu";
+import { QueryModels } from "../../types/helperTypes/query";
 import RangeQuestion from "./rangeQuestion";
 import Selection from "./selection";
+import chatLog from "../../data/chatLog.json";
+import { v4 as uuidv4 } from "uuid";
 
-const MainQuestion = (props: QueryModels) => {
+const chatLogData: Array<Question | Answer> = chatLog;
+
+const QuestionService = (props: QueryModels) => {
   switch (props.result.prediction.topIntent) {
     case "DirectQuestion":
       return DirectQuestion({
@@ -60,8 +66,31 @@ const MainQuestion = (props: QueryModels) => {
         },
       });
     default:
-      return "No answer found!";
+      return "No answer found";
   }
 };
 
-export default MainQuestion;
+const postQuestion = (query: QueryModels): Answer => {
+  const newQuestion: Question = {
+    id: uuidv4(),
+    content: query,
+  };
+
+  const reply: Answer = {
+    id: uuidv4(),
+    query: newQuestion,
+    type:
+      query.result.prediction.topIntent === "Selection"
+        ? "Selection"
+        : "One-line",
+    answer: QuestionService(query),
+  };
+
+  chatLogData.push(newQuestion);
+  chatLogData.push(reply);
+  return reply;
+};
+
+export default {
+  postQuestion,
+};

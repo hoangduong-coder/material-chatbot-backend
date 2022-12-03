@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
-import List from "../data/material.json";
-import { Material } from "../types/helperTypes/material";
-import { QuestionAsk } from "../types/helperTypes/clu";
+import List from "../../data/material.json";
+import { Material } from "../../types/helperTypes/material";
+import { QuestionAsk } from "../../types/helperTypes/query";
 
 const DirectQuestion = (props: Pick<QuestionAsk, "code" | "searchKey">) => {
   const searched: Material[] = List.filter(

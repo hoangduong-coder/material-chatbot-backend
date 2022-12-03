@@ -1,5 +1,5 @@
-import List from "../data/material.json";
-import { QuestionAsk } from "../types/helperTypes/clu";
+import List from "../../data/material.json";
+import { QuestionAsk } from "../../types/helperTypes/query";
 import math from "mathjs";
 
 const CalculationQuestion = (props: Omit<QuestionAsk, "range">) => {

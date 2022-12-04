@@ -1,6 +1,6 @@
-import { Entity, Intent } from "./clu";
+import { Entity, Intent } from "./helperTypes/clu";
 
-export type QuestionAsk = {
+export interface QuestionAsk {
   searchKey: {
     key: string;
   };
@@ -16,9 +16,9 @@ export type QuestionAsk = {
     min: string | number;
     max: string | number;
   };
-};
+}
 
-export type QueryModels = {
+export default interface QueryModels {
   kind: string;
   result: {
     query: string;
@@ -29,4 +29,4 @@ export type QueryModels = {
       entities: Array<Entity>;
     };
   };
-};
+}

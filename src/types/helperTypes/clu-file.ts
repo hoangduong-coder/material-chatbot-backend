@@ -1,7 +1,7 @@
-import { Assets } from "./helperTypes/clu";
-import { LanguageCode } from "./helperTypes/language";
+import { Assets } from "./clu";
+import { LanguageCode } from "./language";
 
-export default interface CLUFile {
+export type CLUFile = {
   projectFileVersion: string;
   stringIndexType: string;
   metadata: {
@@ -15,4 +15,4 @@ export default interface CLUFile {
     };
   };
   assets: Assets;
-}
+};

@@ -1,7 +1,19 @@
-import { QueryModels } from "./helperTypes/query";
+import {
+  KnowledgeBaseAnswerContext,
+  QueryFilters,
+  RankerKind,
+  ShortAnswerOptions,
+} from "./helperTypes/questionAnswering";
 
 export default interface Question {
-  id: string;
+  answerSpanRequest?: ShortAnswerOptions;
+  confidenceScoreThreshold?: number;
+  context?: KnowledgeBaseAnswerContext;
+  filters?: QueryFilters;
+  includeUnstructuredSources?: boolean;
+  qnaId: number | string;
+  question: string;
+  rankerType?: RankerKind;
+  top?: number;
   userId?: string;
-  content: QueryModels;
 }

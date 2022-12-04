@@ -25,7 +25,7 @@ type Resolution = {
 
 export type Intent = {
   category: string;
-  confidenceScore?: number;
+  confidenceScore: number;
 };
 
 export type Entity = {
@@ -37,7 +37,7 @@ export type Entity = {
     expressions: Regex[];
   };
   requireComponents?: requireComponent[];
-  confidenceScore?: number;
+  confidenceScore: number;
   length?: number;
   offset?: number;
   text?: string;

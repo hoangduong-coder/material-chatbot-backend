@@ -13,7 +13,7 @@ router.get("/", (_req, res) => {
 router.post("/", (req, res) => {
   try {
     const answer = questionService.postQuestion(req.body);
-    res.status(201).json(answer);
+    res.status(201).send(answer);
   } catch (error: unknown) {
     let errorMessage = "Something went wrong.";
     if (error instanceof Error) {

@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { Answer, Question } from "../../types";
+import { Answer, QueryModels, Question } from "../../types";
 
 import CalculationQuestion from "./calculationQuestion";
 import DirectQuestion from "./directQuestion";
 import EquivalentQuestion from "./equivalentQuestion";
-import { QueryModels } from "../../types/helperTypes/query";
 import RangeQuestion from "./rangeQuestion";
 import Selection from "./selection";
 import chatLog from "../../data/chatLog.json";
+import { confidenceScore } from "./confidenceScore";
 import { v4 as uuidv4 } from "uuid";
 
 const chatLogData: Array<Question | Answer> = chatLog;
 
-const QuestionService = (props: QueryModels) => {
+const QuestionService = (props: QueryModels): string => {
   switch (props.result.prediction.topIntent) {
     case "DirectQuestion":
       return DirectQuestion({
@@ -72,17 +72,14 @@ const QuestionService = (props: QueryModels) => {
 
 const postQuestion = (query: QueryModels): Answer => {
   const newQuestion: Question = {
-    id: uuidv4(),
-    content: query,
+    qnaId: uuidv4(),
+    question: query.result.query,
   };
 
   const reply: Answer = {
     id: uuidv4(),
-    query: newQuestion,
-    type:
-      query.result.prediction.topIntent === "Selection"
-        ? "Selection"
-        : "One-line",
+    questions: [newQuestion],
+    confidenceScore: confidenceScore(query),
     answer: QuestionService(query),
   };
 

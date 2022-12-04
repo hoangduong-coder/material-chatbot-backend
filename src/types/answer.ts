@@ -1,7 +1,8 @@
 import { AnswerSpan } from "./helperTypes/questionAnswering";
+import Question from "./question";
 
 export default interface Answer {
-  questions?: string[];
+  questions?: string[] | Array<Question>;
   answer: string;
   confidenceScore?: number;
   id: number | string;

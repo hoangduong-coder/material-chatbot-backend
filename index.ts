@@ -1,10 +1,15 @@
+import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import materialRouter from "./src/router/material";
 import qnaRouter from "./src/router/questionAnswering";
 
 const app = express();
+
 app.use(express.json());
+
+// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+app.use(cors());
 dotenv.config();
 
 const port = process.env["LOCAL_SERVER_PORT"];

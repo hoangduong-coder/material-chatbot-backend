@@ -1,5 +1,5 @@
 import List from "../../data/material.json";
-import { QuestionAsk } from "../../types/helperTypes/query";
+import { QuestionAsk } from "../../types";
 
 const RangeQuestion = (props: Pick<QuestionAsk, "range" | "searchKey">) => {
   let check = "";

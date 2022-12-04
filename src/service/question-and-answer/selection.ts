@@ -1,5 +1,5 @@
 import List from "../../data/material.json";
-import { QuestionAsk } from "../../types/helperTypes/query";
+import { QuestionAsk } from "../../types";
 
 let ans: string;
 const Selection = (props: Pick<QuestionAsk, "code">) => {
@@ -7,7 +7,7 @@ const Selection = (props: Pick<QuestionAsk, "code">) => {
     (l) => l[props.code.key] === props.code.value.toUpperCase()
   );
   if (!searched) {
-    return null;
+    return "Try again!";
   }
   for (const [key, value] of Object.entries(searched)) {
     ans += `${key}: ${value}, `;

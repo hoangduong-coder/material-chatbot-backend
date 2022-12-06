@@ -5,14 +5,24 @@ import materialRouter from "./src/router/material";
 import qnaRouter from "./src/router/questionAnswering";
 
 const app = express();
-
+app.disable("x-powered-by");
 app.use(express.json());
 app.use(express.static("build"));
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-app.use(cors());
+
+const port = process.env.LOCAL_SERVER_PORT;
+
+const corsOptions = {
+  origin: [
+    `http://localhost:${port}/`,
+    `http://localhost:${port}`,
+    "https://material-chatbot-backend.vercel.app/",
+    "https://material-chatbot-backend.vercel.app",
+  ],
+  allowHeaders: ["Content-Type"],
+};
+app.use(cors(corsOptions));
 dotenv.config();
 
-const port = process.env["LOCAL_SERVER_PORT"];
 
 app.use("/api/qna", qnaRouter);
 

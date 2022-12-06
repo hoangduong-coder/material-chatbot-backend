@@ -19,7 +19,11 @@ const corsOptions = {
     "https://material-chatbot-backend.vercel.app",
   ],
   allowHeaders: [
+    "Connection",
+    "Authorization",
     "Content-Type",
+    "Content-Range",
+    "Access-Control-Allow-Origin",
   ],
 };
 app.use(cors(corsOptions));

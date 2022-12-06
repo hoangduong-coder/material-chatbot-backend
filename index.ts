@@ -11,22 +11,7 @@ app.use(express.static("build"));
 
 const port = process.env.LOCAL_SERVER_PORT;
 
-const corsOptions = {
-  origin: [
-    `http://localhost:${port}/`,
-    `http://localhost:${port}`,
-    "https://material-chatbot-backend.vercel.app/",
-    "https://material-chatbot-backend.vercel.app",
-  ],
-  allowHeaders: [
-    "Connection",
-    "Authorization",
-    "Content-Type",
-    "Content-Range",
-    "Access-Control-Allow-Origin",
-  ],
-};
-app.use(cors(corsOptions));
+app.use(cors());
 dotenv.config();
 
 app.use("/api/qna", qnaRouter);

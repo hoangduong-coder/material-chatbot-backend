@@ -1,32 +1,31 @@
 import List from "../../data/material.json";
-import { QuestionAsk } from "../../types";
+import { Entity } from "../../types/helperTypes/clu";
 
-const RangeQuestion = (props: Pick<QuestionAsk, "range" | "searchKey">) => {
-  let check = "";
-  const min = props.range.min;
-  const max = props.range.max;
-  if (typeof min === "number" && typeof max === "number") {
-    check = "range";
-  } else if (typeof min === "number" && typeof max === "string") {
-    check = "bigger";
-  } else if (typeof min === "string" && typeof max === "number") {
-    check = "smaller";
-  }
+const RangeQuestion = (props: Array<Entity>) => {
+  let ans = ''
+  let check: string = ''
+  const value: Entity | undefined = props.find(en => en.category === 'Value')
+  const searchKey = props.find(en => en.category === 'Search Key')?.extraInformation?.[0].key!
+  if (!value || ! searchKey) return ans = 'No answer found!'
 
-  const listSearched = List.filter((ls) => {
+  const max = value.resolutions?.[0].maximum!
+  const min = value.resolutions?.[0].minimum!
+
+  if (typeof max === 'string') check = 'bigger'
+  else if (typeof min === 'string') check = 'smaller'
+
+  const listSearched = List.filter(ls => {
     switch (check) {
-      case "range":
-        return ls[props.searchKey.key] >= min && ls[props.searchKey.key] <= max;
-      case "bigger":
-        return ls[props.searchKey.key] >= min;
-      case "smaller":
-        return ls[props.searchKey.key] <= max;
+      case 'bigger':
+        return ls[searchKey] >= min;
+      case 'smaller':
+        return ls[searchKey] <= max
       default:
-        return "No answer found!";
-    }
-  });
-  const ans = listSearched.map((s) => s["Material ID"]);
-  return ans.join(`, `);
-};
+        return ls[searchKey] >= min && ls[searchKey] <= max;
+      }
+  })
+  ans = listSearched.map((s) => s["Material ID"]).join(', ');
+  return ans
+}
 
 export default RangeQuestion;

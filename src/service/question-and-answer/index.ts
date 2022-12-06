@@ -11,60 +11,24 @@ import Selection from "./selection";
 import chatLog from "../../data/chatLog.json";
 import { confidenceScore } from "./confidenceScore";
 import { v4 as uuidv4 } from "uuid";
+import { Entity } from "../../types/helperTypes/clu";
 
 const chatLogData: Array<Question | Answer> = chatLog;
+let entities: Array<Entity>;
 
 const QuestionService = (props: QueryModels): string => {
+  entities = props.result.prediction.entities
   switch (props.result.prediction.topIntent) {
     case "DirectQuestion":
-      return DirectQuestion({
-        searchKey: {
-          key: props.result.prediction.entities[0].extraInformation?.[0].key!,
-        },
-        code: {
-          key: props.result.prediction.entities[1].category,
-          value: props.result.prediction.entities[1].text!,
-        },
-      });
+      return DirectQuestion(entities)
     case "Selection":
-      return Selection({
-        code: {
-          key: props.result.prediction.entities[0].category,
-          value: props.result.prediction.entities[0].text!,
-        },
-      });
+      return Selection(entities)
     case "EquivalentQuestion":
-      return EquivalentQuestion({
-        code: {
-          key: props.result.prediction.entities[1].category,
-          value: props.result.prediction.entities[1].text!,
-        },
-      });
+      return EquivalentQuestion(entities)
     case "CalculationQuestion":
-      return CalculationQuestion({
-        searchKey: {
-          key: props.result.prediction.entities[0].extraInformation?.[0].key!,
-        },
-        code: {
-          key: props.result.prediction.entities[2].category,
-          value: props.result.prediction.entities[2].text!,
-        },
-        value: {
-          kind: props.result.prediction.entities[1].resolutions?.[0]
-            .resolutionKind!,
-          value: props.result.prediction.entities[1].text!,
-        },
-      });
+      return CalculationQuestion(entities)
     case "RangeQuestion":
-      return RangeQuestion({
-        searchKey: {
-          key: props.result.prediction.entities[0].extraInformation?.[0].key!,
-        },
-        range: {
-          min: props.result.prediction.entities[1].resolutions?.[0].minimum!,
-          max: props.result.prediction.entities[1].resolutions?.[0].maximum!,
-        },
-      });
+      return RangeQuestion(entities)
     default:
       return "No answer found";
   }

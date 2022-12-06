@@ -40,7 +40,7 @@ export type Entity = {
   confidenceScore: number;
   length?: number;
   offset?: number;
-  text?: string;
+  text: string;
   extraInformation?: Array<ExtraInfo>;
   resolutions?: Array<Resolution>;
 };

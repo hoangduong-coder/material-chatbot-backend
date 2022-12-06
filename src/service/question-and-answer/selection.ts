@@ -1,18 +1,24 @@
-import List from "../../data/material.json";
-import { QuestionAsk } from "../../types";
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 
-let ans: string;
-const Selection = (props: Pick<QuestionAsk, "code">) => {
-  const searched = List.find(
-    (l) => l[props.code.key] === props.code.value.toUpperCase()
-  );
-  if (!searched) {
-    return "Try again!";
-  }
-  for (const [key, value] of Object.entries(searched)) {
-    ans += `${key}: ${value}, `;
-  }
-  return ans.slice(0, -2);
+import { Entity } from "../../types/helperTypes/clu";
+import List from "../../data/material.json";
+import { Material } from "../../types/helperTypes/material";
+
+const Selection = (props: Array<Entity>) => {
+  let ans = "";
+  props.forEach((c) => {
+    const searched: Material | undefined = List.find(
+      (l) => l[c.category].toUpperCase() === c.text.toUpperCase()
+    );
+    if (!searched)
+      return "No answer found!";
+    ans += `\u{2605}Information of ${c.text}\n`;
+    for (const [key, value] of Object.entries(searched)) {
+      ans += `\u{2606} ${key}: ${value}\n`;
+    }
+    return ans;
+  });
+  return ans;
 };
 
 export default Selection;

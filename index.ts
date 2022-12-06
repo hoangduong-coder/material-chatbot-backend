@@ -18,11 +18,16 @@ const corsOptions = {
     "https://material-chatbot-backend.vercel.app/",
     "https://material-chatbot-backend.vercel.app",
   ],
-  allowHeaders: ["Content-Type"],
+  allowHeaders: [
+    "Connection",
+    "Authorization",
+    "Content-Type",
+    "Content-Range",
+    "Access-Control-Allow-Origin",
+  ],
 };
 app.use(cors(corsOptions));
 dotenv.config();
-
 
 app.use("/api/qna", qnaRouter);
 

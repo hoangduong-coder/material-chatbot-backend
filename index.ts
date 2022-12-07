@@ -8,11 +8,10 @@ const app = express();
 app.disable("x-powered-by");
 app.use(express.json());
 app.use(express.static("build"));
-
-const port = process.env.LOCAL_SERVER_PORT;
-
 app.use(cors());
 dotenv.config();
+
+const port = process.env.LOCAL_SERVER_PORT;
 
 app.use("/api/qna", qnaRouter);
 

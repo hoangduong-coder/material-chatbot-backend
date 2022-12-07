@@ -6,8 +6,7 @@ import questionService from "../service/question-and-answer";
 const router = express.Router();
 
 router.get("/", (_req, res) => {
-  console.log("Run GET successfully!");
-  res.send("Get all questions and answer!");
+  res.status(200).send("Material chatbot server");
 });
 
 router.post("/", (req, res) => {

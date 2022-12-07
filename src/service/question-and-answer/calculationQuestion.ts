@@ -1,8 +1,8 @@
 import List from "../../data/material.json";
-import math from "mathjs";
+// import math from "mathjs";
 import { Entity } from "../../types/helperTypes/clu";
 
-// let math = require('mathjs')
+const math = require('mathjs')
 const CalculationQuestion = (props: Array<Entity>) => {
   let ans = ''
   let searchKeyList: string[] = []
@@ -16,12 +16,8 @@ const CalculationQuestion = (props: Array<Entity>) => {
   let searchValue: Array<Entity>
   searchValue = props.filter(f => f.category === "Value")
   if (!searchedList || !searchKeyList || !searchValue) return ans = "No answer found!"
-  console.log(searchValue)
-  const input = math.unit(searchValue[0].text).toNumber('m')
-  console.log(input)
   searchValue.forEach(sv => {
     let m: number[] = []
-    console.log(math.unit(sv.text).toNumber('m'))
     if (sv.resolutions?.[0].resolutionKind === "LengthResolution") {
       searchedList.forEach(sl => m.push(math.unit(sv.text).toNumber('m') * sl.Mass))
     } else {for (let i = 0; i < searchedList.length; i++) m.push(math.unit(sv.text).toNumber('kg'))}

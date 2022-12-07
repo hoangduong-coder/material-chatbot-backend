@@ -1105,7 +1105,7 @@ make-error@^1.1.1:
 
 mathjs@^11.5.0:
   version "11.5.0"
-  resolved "https://registry.npmjs.org/mathjs/-/mathjs-11.5.0.tgz"
+  resolved "https://registry.yarnpkg.com/mathjs/-/mathjs-11.5.0.tgz#5cacad7affa2c804ad3f09efa5d53f0ffcb79493"
   integrity sha512-vJ/+SqWtxjW6/aeDRt8xL3TlOVKqwN15BIyTGVqGbIWuiqgY4SxZ0yLuna82YH9CB757iFP7uJ4m3KvVBX7Qcg==
   dependencies:
     "@babel/runtime" "^7.20.6"

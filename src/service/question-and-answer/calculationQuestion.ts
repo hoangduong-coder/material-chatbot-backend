@@ -1,21 +1,20 @@
+import * as math from "mathjs";
+
 import { Entity } from "../../types/helperTypes/clu";
 import List from "../../data/material.json";
 
-// import math from "mathjs";
-import { Entity } from "../../types/helperTypes/clu";
-
-
-const math = require('mathjs')
 const CalculationQuestion = (props: Array<Entity>) => {
   let ans = ''
   let searchKeyList: string[] = []
-  props.forEach(sk => {if(sk.category === "Search Key") searchKeyList.push(sk.extraInformation?.[0].key!)})
+  props.forEach(sk => { if (sk.category === "Search Key") searchKeyList.push(sk.extraInformation?.[0].key!) })
   let searchedList: any[] = []
   let text: string[] = []
-  props.forEach(sc => {if(sc.category !== "Search Key" && sc.category !== "Value") {
-    searchedList.push(List.find(l => l[sc.category].replace(/ /g,'') === sc.text!.toUpperCase().replace(/ /g,'')))
-    text.push(sc.text!)
-  }})
+  props.forEach(sc => {
+    if (sc.category !== "Search Key" && sc.category !== "Value") {
+      searchedList.push(List.find(l => l[sc.category].replace(/ /g, '') === sc.text!.toUpperCase().replace(/ /g, '')))
+      text.push(sc.text!)
+    }
+  })
   let searchValue: Array<Entity>
   searchValue = props.filter(f => f.category === "Value")
   if (!searchedList || !searchKeyList || !searchValue) return ans = "No answer found!"

@@ -5,13 +5,13 @@ import { Answer, QueryModels, Question } from "../../types";
 
 import CalculationQuestion from "./calculationQuestion";
 import DirectQuestion from "./directQuestion";
+import { Entity } from "../../types/helperTypes/clu";
 import EquivalentQuestion from "./equivalentQuestion";
 import RangeQuestion from "./rangeQuestion";
 import Selection from "./selection";
 import chatLog from "../../data/chatLog.json";
 import { confidenceScore } from "./confidenceScore";
 import { v4 as uuidv4 } from "uuid";
-import { Entity } from "../../types/helperTypes/clu";
 
 const chatLogData: Array<Question | Answer> = chatLog;
 let entities: Array<Entity>;

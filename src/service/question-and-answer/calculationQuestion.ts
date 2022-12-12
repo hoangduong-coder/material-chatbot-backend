@@ -1,6 +1,8 @@
-import List from "../../data/material.json";
-// import math from "mathjs";
 import { Entity } from "../../types/helperTypes/clu";
+import List from "../../data/material.json";
+
+// import math from "mathjs";
+
 
 const math = require('mathjs')
 const CalculationQuestion = (props: Array<Entity>) => {

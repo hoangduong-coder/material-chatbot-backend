@@ -5,14 +5,14 @@ import materialRouter from "./src/router/material";
 import qnaRouter from "./src/router/questionAnswering";
 
 const app = express();
-
+app.disable("x-powered-by");
 app.use(express.json());
 app.use(express.static("build"));
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
+const port = process.env.LOCAL_SERVER_PORT;
+
 app.use(cors());
 dotenv.config();
-
-const port = process.env["LOCAL_SERVER_PORT"];
 
 app.use("/api/qna", qnaRouter);
 

@@ -1,5 +1,7 @@
-import List from "../../data/material.json";
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+
 import { Entity } from "../../types/helperTypes/clu";
+import List from "../../data/material.json";
 import { Material } from "../../types/helperTypes/material";
 
 const EquivalentQuestion = (props: Array<Entity>) => {
@@ -23,6 +25,6 @@ const EquivalentQuestion = (props: Array<Entity>) => {
     return ans;
   });
   return ans;
-}
+};
 
 export default EquivalentQuestion;

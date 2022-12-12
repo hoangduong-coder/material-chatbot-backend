@@ -38,10 +38,10 @@ const CalculationQuestion = (props: Array<Entity>) => {
       for (let i = 0; i < searchedList.length; i++) {
         searchValue.forEach((sv) => {
           let m = 0;
-          if (sv.resolutions?.[0].resolutionKind === "LengthResolution")
-            m = math.unit(sv.text).toNumber("m") * searchedList[i].Mass;
-          else m = math.unit(sv.text).toNumber("kg");
+          if (sv.resolutions?.[0].resolutionKind === "WeightResolution")
+            m = math.unit(sv.text).toNumber("kg");
 
+          else m = math.unit(sv.text).toNumber("m") * searchedList[i].Mass;
           switch (sk) {
             case "Mass":
               ans += `${sk} of ${sv.text} ${text[i]}: ${m.toFixed(3)}kg\n`;

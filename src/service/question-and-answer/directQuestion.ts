@@ -3,8 +3,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import List from "../../data/material.json";
 import { Entity } from "../../types/helperTypes/clu";
+import List from "../../data/material.json";
 
 const DirectQuestion = (props: Array<Entity>) => {
   let ans = "";
@@ -32,6 +32,6 @@ const DirectQuestion = (props: Array<Entity>) => {
     return ans;
   });
   return ans;
-}
+};
 
 export default DirectQuestion;

@@ -1,37 +1,67 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+
 import * as math from "mathjs";
+
 import { Entity } from "../../types/helperTypes/clu";
 import List from "../../data/material.json";
+
 const CalculationQuestion = (props: Array<Entity>) => {
-  let ans = ''
-  let searchKeyList: string[] = []
-  props.forEach(sk => {if(sk.category === "Search Key") searchKeyList.push(sk.extraInformation?.[0].key!)})
+  let ans = "";
+  const searchKeyList: string[] = [];
+  const searchedList: any[] = [];
+  const text: string[] = [];
 
-  let searchValue: Array<Entity>
-  searchValue = props.filter(f => f.category === "Value")
+  const searchValue: Array<Entity> = props.filter(
+    (f) => f.category === "Value"
+  );
 
-  let searchedList: any[] = []
-  let text: string[] = []
-  props.forEach(sc => {if(sc.category !== "Search Key" && sc.category !== "Value") {
-    searchedList.push(List.find(l => l[sc.category].replace(/ /g,'') === sc.text!.toUpperCase().replace(/ /g,'')))
-    text.push(sc.text!)
-  }})
-
-  if (!searchedList || !searchKeyList || !searchValue) return "No answer found!"
-
-  searchKeyList.forEach(sk => {
-    for (let i = 0; i < searchedList.length; i++) {
-      searchValue.forEach(sv => {
-        let m: number = 0
-        if (sv.resolutions?.[0].resolutionKind === "LengthResolution") m = math.unit(sv.text).toNumber('m') * searchedList[i].Mass
-        else m = math.unit(sv.text).toNumber('kg')
-      
-        if (sk === 'Mass')  ans += `${sk} of ${sv.text!} ${text[i]}: ${m.toFixed(3)}kg\n`
-        else if (sk === 'Cost') ans += `${sk} of ${sv.text!} ${text[i]}: ${(m*searchedList[i].Cost).toFixed(3)}€\n`
-      })
+  props.forEach((sk) => {
+    if (sk.category === "Search Key")
+      searchKeyList.push(sk.extraInformation?.[0].key!);
+    if (sk.category !== "Search Key" && sk.category !== "Value") {
+      searchedList.push(
+        List.find(
+          (l) =>
+            l[sk.category].replace(/ /g, "") ===
+            sk.text.toUpperCase().replace(/ /g, "")
+        )!
+      );
+      text.push(sk.text);
     }
-  })
+  });
 
-  return ans
-}
+  try {
+    searchKeyList.forEach((sk) => {
+      for (let i = 0; i < searchedList.length; i++) {
+        searchValue.forEach((sv) => {
+          let m = 0;
+          if (sv.resolutions?.[0].resolutionKind === "WeightResolution")
+            m = math.unit(sv.text).toNumber("kg");
+
+          else m = math.unit(sv.text).toNumber("m") * searchedList[i].Mass;
+          switch (sk) {
+            case "Mass":
+              ans += `${sk} of ${sv.text} ${text[i]}: ${m.toFixed(3)}kg\n`;
+              break;
+            case "Cost":
+              ans += `${sk} of ${sv.text} ${text[i]}: ${(
+                m * searchedList[i].Cost
+              ).toFixed(3)}€\n`;
+              break;
+            default:
+              ans += "No answer found";
+          }
+        });
+      }
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      ans += 'There is an error! Try again!';
+    }
+  }
+  return ans;
+};
 
 export default CalculationQuestion;

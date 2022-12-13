@@ -6,12 +6,11 @@ import * as math from "mathjs";
 
 import { Entity } from "../../types/helperTypes/clu";
 import List from "../../data/material.json";
-import { Material } from './../../types/helperTypes/material';
 
 const CalculationQuestion = (props: Array<Entity>) => {
   let ans = "";
   const searchKeyList: string[] = [];
-  const searchedList: Material[] = [];
+  const searchedList: any[] = [];
   const text: string[] = [];
 
   const searchValue: Array<Entity> = props.filter(

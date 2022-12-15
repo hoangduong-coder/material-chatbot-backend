@@ -28,7 +28,7 @@ const CalculationQuestion = (props: Array<Entity>) => {
             sk.text.toUpperCase().replace(/ /g, "")
         )!
       );
-      text.push(sk.text);
+      text.push(sk.category);
     }
   });
 

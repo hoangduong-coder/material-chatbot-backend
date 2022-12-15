@@ -22,13 +22,13 @@ const DirectQuestion = (props: Array<Entity>) => {
     if (sk.category === "Search Key")
       searchKeyList.push(sk.extraInformation?.[0].key!);
   });
-  if ((!searchCode || !searchKeyList) || !searchElement) return "No answer found!";
-  if (searchElement.length == 0) {
+  if (!((searchCode.length != 0 && searchKeyList.length != 0) || searchElement.length != 0)) return "No answer found!";
+  if (searchCode.length != 0) {
     searchCode.forEach((sc) => {
       const searchedList = List.filter(
         (l) =>{
           if (sc.category === "Basic Material") {
-            return l["Basic Material"].substring(0, l["Basic Material"].indexOf(" ")).toUpperCase() === sc.text.toUpperCase().replace(/ /g, "")
+            return l["Basic Material"].toUpperCase().replace(/ /g, "").includes(sc.text.toUpperCase().replace(/ /g, ""))
           } else {
             return l[sc.category].toUpperCase().replace(/ /g, "") === sc.text.toUpperCase().replace(/ /g, "")
           }
@@ -57,7 +57,7 @@ const DirectQuestion = (props: Array<Entity>) => {
     if (!searchedList) return "No answer found!";
     const searched: Array<string> = []
     searchedList.forEach(sl => searched.push(sl["Material ID"]));
-    ans += `Material ID with ${searchElement.map(se => se.text).join(",")}: ${searched.join(", ")}\n`;
+    ans += `Material ID with ${searchElement.map(se => se.text).join(", ")}: ${searched.join(", ")}\n`;
   }
   
   return ans;

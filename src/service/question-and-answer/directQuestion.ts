@@ -22,45 +22,52 @@ const DirectQuestion = (props: Array<Entity>) => {
     if (sk.category === "Search Key")
       searchKeyList.push(sk.extraInformation?.[0].key!);
   });
-  if (!((searchCode.length != 0 && searchKeyList.length != 0) || searchElement.length != 0)) return "No answer found!";
-  if (searchCode.length != 0) {
-    searchCode.forEach((sc) => {
-      const searchedList = List.filter(
-        (l) =>{
-          if (sc.category === "Basic Material" && sc.extraInformation?.[0].key! === "Basic Material with International Standard") {
-            return l["Basic Material"].toUpperCase().replace(/ /g, "").includes(sc.text.toUpperCase().replace(/ /g, ""))
-          } 
-          else if (sc.category === "Basic Material" && sc.extraInformation?.[0].key! === "Basic Material") {
-            return l["Basic Material"].substring(0, l["Basic Material"].indexOf(" ")).toUpperCase() === sc.text.toUpperCase().replace(/ /g, "")
+
+  try {
+    if (searchCode.length != 0 && searchElement.length == 0) {
+      searchCode.forEach((sc) => {
+        const searchedList = List.filter(
+          (l) =>{
+            if (sc.category === "Basic Material" && sc.extraInformation?.[0].key! === "Basic Material with International Standard") {
+              return l["Basic Material"].toUpperCase().replace(/ /g, "").includes(sc.text.toUpperCase().replace(/ /g, ""))
+            } 
+            else if (sc.category === "Basic Material" && sc.extraInformation?.[0].key! === "Basic Material") {
+              return l["Basic Material"].substring(0, l["Basic Material"].indexOf(" ")).toUpperCase() === sc.text.toUpperCase().replace(/ /g, "")
+            }
+            else {
+              return l[sc.category].toUpperCase().replace(/ /g, "") === sc.text.toUpperCase().replace(/ /g, "")
+            }
           }
-          else {
-            return l[sc.category].toUpperCase().replace(/ /g, "") === sc.text.toUpperCase().replace(/ /g, "")
-          }
+            
+        );
+        if (!searchedList) return "No answer found!";
+        const searched: Array<string> = []
+        if (searchKeyList.length) {
+          searchKeyList.forEach((sk) => {
+            searchedList.forEach(sl => searched.push(sl[sk]))
+            ans += `${sk} of ${sc.text}: ${searched.join(", ")}\n`;
+          })
+        } else {
+          searchedList.forEach(sl => searched.push(sl["Material ID"]))
+          ans += `Material ID of ${sc.text}: ${searched.join(", ")}\n`;
         }
-          
+        return ans;
+      });
+    }
+    else if (searchElement.length != 0) {
+      const searchedList = List.filter(
+        (l) => searchElement.every(se => l["Basic Material"].toUpperCase().includes(se.text.toUpperCase()))
       );
       if (!searchedList) return "No answer found!";
       const searched: Array<string> = []
-      if (searchKeyList.length) {
-        searchKeyList.forEach((sk) => {
-          searchedList.forEach(sl => searched.push(sl[sk]))
-          ans += `${sk} of ${sc.text}: ${searched.join(", ")}\n`;
-        })
-      } else {
-        searchedList.forEach(sl => searched.push(sl["Material ID"]))
-        ans += `Material ID of ${sc.text}: ${searched.join(", ")}\n`;
-      }
-      return ans;
-    });
+      searchedList.forEach(sl => searched.push(sl["Material ID"]));
+      ans += `Material ID with ${searchElement.map(se => se.text).join(", ")}: ${searched.join(", ")}\n`;
+    } else return "No answer found!"
   }
-  else {
-    const searchedList = List.filter(
-      (l) => searchElement.every(se => l["Basic Material"].toUpperCase().includes(se.text.toUpperCase()))
-    );
-    if (!searchedList) return "No answer found!";
-    const searched: Array<string> = []
-    searchedList.forEach(sl => searched.push(sl["Material ID"]));
-    ans += `Material ID with ${searchElement.map(se => se.text).join(", ")}: ${searched.join(", ")}\n`;
+  catch (error: unknown) {
+    if (error instanceof Error) {
+      ans += 'There is an error! Try again!';
+    }
   }
   
   return ans;

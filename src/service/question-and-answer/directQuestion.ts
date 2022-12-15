@@ -27,15 +27,18 @@ const DirectQuestion = (props: Array<Entity>) => {
     searchCode.forEach((sc) => {
       const searchedList = List.filter(
         (l) =>{
-          if (sc.category === "Basic Material") {
+          if (sc.category === "Basic Material" && sc.extraInformation?.[0].key! === "Basic Material with International Standard") {
             return l["Basic Material"].toUpperCase().replace(/ /g, "").includes(sc.text.toUpperCase().replace(/ /g, ""))
-          } else {
+          } 
+          else if (sc.category === "Basic Material" && sc.extraInformation?.[0].key! === "Basic Material") {
+            return l["Basic Material"].substring(0, l["Basic Material"].indexOf(" ")).toUpperCase() === sc.text.toUpperCase().replace(/ /g, "")
+          }
+          else {
             return l[sc.category].toUpperCase().replace(/ /g, "") === sc.text.toUpperCase().replace(/ /g, "")
           }
         }
           
       );
-      console.log(searchedList)
       if (!searchedList) return "No answer found!";
       const searched: Array<string> = []
       if (searchKeyList.length) {

@@ -8,7 +8,7 @@ const Selection = (props: Array<Entity>) => {
   let ans = "";
   props.forEach((c) => {
     const searched: Material | undefined = List.find(
-      (l) => l[c.category].toUpperCase() === c.text.toUpperCase()
+      (l) => l[c.category].toUpperCase().replace(/ /g, "").includes(c.text.toUpperCase().replace(/ /g, ""))
     );
     if (!searched)
       return "No answer found!";

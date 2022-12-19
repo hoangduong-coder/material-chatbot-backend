@@ -1,7 +1,7 @@
 export interface Material {
   "Material ID": string;
   "Object Name": string;
-  Dimensions: number | string;
+  Dimension: number | string;
   "Unit of Measure": string;
   "International Standard"?: string;
   "Basic Material": string;

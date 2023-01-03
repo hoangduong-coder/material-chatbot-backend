@@ -1,0 +1,83 @@
+{
+    "kind": "ConversationResult",
+    "result": {
+        "query": "What is the cost for a 1m length bar MAT0003?",
+        "prediction": {
+            "topIntent": "CalculationQuestion",
+            "projectKind": "Conversation",
+            "intents": [
+                {
+                    "category": "CalculationQuestion",
+                    "confidenceScore": 0.97064316
+                },
+                {
+                    "category": "DirectQuestion",
+                    "confidenceScore": 0.74630964
+                },
+                {
+                    "category": "EquivalentQuestion",
+                    "confidenceScore": 0.6718082
+                },
+                {
+                    "category": "Selection",
+                    "confidenceScore": 0.6697296
+                },
+                {
+                    "category": "RangeQuestion",
+                    "confidenceScore": 0.49671882
+                },
+                {
+                    "category": "None",
+                    "confidenceScore": 0
+                }
+            ],
+            "entities": [
+                {
+                    "category": "Search Key",
+                    "text": "cost",
+                    "offset": 12,
+                    "length": 4,
+                    "confidenceScore": 1,
+                    "extraInformation": [
+                        {
+                            "extraInformationKind": "ListKey",
+                            "key": "Cost"
+                        }
+                    ]
+                },
+                {
+                    "category": "Value",
+                    "text": "2 cm",
+                    "offset": 23,
+                    "length": 4,
+                    "confidenceScore": 1,
+                    "resolutions": [
+                        {
+                            "resolutionKind": "LengthResolution",
+                            "unit": "Centimeter",
+                            "value": 2
+                        }
+                    ],
+                    "extraInformation": [
+                        {
+                            "extraInformationKind": "EntitySubtype",
+                            "value": "quantity.dimension"
+                        }
+                    ]
+                },
+                {
+                    "category": "Material ID",
+                    "text": "MAT0003",
+                    "offset": 39,
+                    "length": 7,
+                    "confidenceScore": 1,
+                    "extraInformation": [
+                        {
+                            "extraInformationKind": "RegexKey"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -37,7 +37,7 @@ For the back-end, we used TypeScript as the programming language. The database i
 | --- | --- | --- |
 | GET | /api/qna | Return chatlog data |
 | GET | /api/qna/[:yourIdHere] | Return the question's answer |
-| POST | /api/qna | Post a new question, see this sample query |
+| POST | /api/qna | Post a new question, see this [sample query](https://github.com/hoangduong-coder/material-chatbot-backend/blob/main/src/sample/sampleQuery.json) |
 | GET | /api/material | Return all material in the database |
 | POST | /api/material | Post a new material, see this [material database](https://github.com/hoangduong-coder/material-chatbot-backend/blob/main/src/data/material.json) |
 
@@ -56,6 +56,7 @@ yarn install
 ```
 
 2. Create `.env` file with the correct credentials to access Azure service. (Contact me via email at hoangduongphantri@gmail.com to get the environment variables file).
+
 3. Remember to check if you have `tsconfig.json` file in your project. Otherwise, build the file by `npm` or `yarn`:
 ```
 npm run build
@@ -76,7 +77,8 @@ or
 yarn run dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001) in any API platform to test the APIs.\
+Open [http://localhost:3001](http://localhost:3001) in any API platform to test the APIs.
+
 5. You can test the code by `npm` or `yarn`:
 ```
 npm run test
